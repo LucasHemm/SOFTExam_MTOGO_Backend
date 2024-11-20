@@ -19,10 +19,10 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Restore dependencies
-        run: dotnet restore RestaurantService/RestaurantService.sln
+        run: dotnet restore MTOGO/MTOGO.sln
 
       - name: Build
-        run: dotnet build RestaurantService/RestaurantService.sln --no-restore --configuration Release
+        run: dotnet build MTOGO/MTOGO.sln --no-restore --configuration Release
 
       - name: Test
-        run: dotnet test RestaurantService/RestaurantService.sln --no-build --configuration Release --verbosity normal
+        run: dotnet test MTOGO/MTOGO.sln --no-build --configuration Release --verbosity normal
