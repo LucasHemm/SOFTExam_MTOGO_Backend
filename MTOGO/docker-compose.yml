@@ -1,0 +1,6 @@
+﻿services:
+  mtogo:
+    image: mtogo
+    build:
+      context: .
+      dockerfile: MTOGO/Dockerfile
