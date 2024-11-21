@@ -54,4 +54,12 @@ public class RestaurantFacade
         return updatedMenuItem;
     }
     
+    public static async Task<List<MenuItemDTO>> GetMenuItems(int id)
+    {
+        var response = await HttpClient.GetAsync($"http://localhost:5176/api/restaurantapi/menuitems/{id}");
+        response.EnsureSuccessStatusCode();
+        var menuItems = await response.Content.ReadFromJsonAsync<List<MenuItemDTO>>();
+        return menuItems;
+    }
+    
 }

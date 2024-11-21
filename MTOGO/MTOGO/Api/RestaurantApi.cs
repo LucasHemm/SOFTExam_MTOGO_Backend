@@ -91,4 +91,19 @@ public class RestaurantApi : ControllerBase
         }
     }
     
+    //Get menu items by restaurant id
+    [HttpGet("MenuItems/{id}")]
+    public async Task<IActionResult> GetMenuItems(int id)
+    {
+        try
+        {
+            List<MenuItemDTO> dtos = await RestaurantFacade.GetMenuItems(id);
+            return Ok(dtos);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
 }
