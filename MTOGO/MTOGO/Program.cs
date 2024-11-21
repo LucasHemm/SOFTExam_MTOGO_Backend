@@ -18,6 +18,9 @@ public class Program
 
 // Register Facades
         builder.Services.AddScoped<OrderFacade>();
+        builder.Services.AddScoped<RestaurantFacade>();
+        builder.Services.AddScoped<UserFacade>();
+        builder.Services.AddScoped<PaymentFacade>();
 
 // Enable Swagger/OpenAPI
         builder.Services.AddEndpointsApiExplorer();
