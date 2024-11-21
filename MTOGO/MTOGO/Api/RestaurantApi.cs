@@ -16,4 +16,79 @@ public class RestaurantApi : ControllerBase
         return Ok(dtos);
     }
     
+    //Get restaurant by id
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetRestaurant(int id)
+    {
+        try
+        {
+            RestaurantDTO dto = await RestaurantFacade.GetRestaurant(id);
+            return Ok(dto);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    //Create restaurant
+    [HttpPost]
+    public async Task<IActionResult> CreateRestaurant([FromBody] RestaurantDTO restaurantDto)
+    {
+        try
+        {
+            RestaurantDTO createdRestaurant = await RestaurantFacade.CreateRestaurant(restaurantDto);
+            return Ok(createdRestaurant);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    //Update restaurant
+    [HttpPut]
+    public async Task<IActionResult> UpdateRestaurant([FromBody] RestaurantDTO restaurantDto)
+    {
+        try
+        {
+            RestaurantDTO updatedRestaurant = await RestaurantFacade.UpdateRestaurant(restaurantDto);
+            return Ok(updatedRestaurant);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    //Create menu item
+    [HttpPost("MenuItem")]
+    public async Task<IActionResult> CreateMenuItem([FromBody] MenuItemDTO menuItemDto)
+    {
+        try
+        {
+            MenuItemDTO createdMenuItem = await RestaurantFacade.CreateMenuItem(menuItemDto);
+            return Ok(createdMenuItem);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    //Update menu item
+    [HttpPut("MenuItem")]
+    public async Task<IActionResult> UpdateMenuItem([FromBody] MenuItemDTO menuItemDto)
+    {
+        try
+        {
+            MenuItemDTO updatedMenuItem = await RestaurantFacade.UpdateMenuItem(menuItemDto);
+            return Ok(updatedMenuItem);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
 }
