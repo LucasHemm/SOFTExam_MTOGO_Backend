@@ -15,6 +15,14 @@ public class OrderApi : ControllerBase
         return Ok(json);
     }
     
+    //Get order by id
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetOrder(int id)
+    {
+        string json = await OrderFacade.GetOrder(id);
+        return Ok(json);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> CreateMenuItem([FromBody] OrderDTO orderDto)
     {
@@ -22,6 +30,20 @@ public class OrderApi : ControllerBase
         {
             OrderDTO createdOrderDto = await OrderFacade.CreateOrder(orderDto);
             return Ok(createdOrderDto);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> UpdateOrderStatus([FromBody] UpdateStatusDTO orderDto)
+    {
+        try
+        {
+            OrderDTO updatedOrderDto = await OrderFacade.UpdateOrderStatus(orderDto);
+            return Ok(updatedOrderDto);
         }
         catch (Exception ex)
         {

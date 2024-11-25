@@ -36,7 +36,7 @@ namespace MTOGO.Facades
                 return $"Exception: {ex}";
             }
         }
-        
+
         public static async Task<string> GetOrder(int id)
         {
             // Define the base address of the API
@@ -67,14 +67,22 @@ namespace MTOGO.Facades
                 return $"Exception: {ex}";
             }
         }
-        
+
         public static async Task<OrderDTO> CreateOrder(OrderDTO orderDto)
         {
-            var response = await HttpClient.PutAsJsonAsync("http://localhost:5176/api/restaurantapi/menuitem", orderDto);
+            var response = await HttpClient.PostAsJsonAsync("http://localhost:5005/api/orderapi", orderDto);
             response.EnsureSuccessStatusCode();
             var createdOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
             return createdOrder;
         }
-        
+
+
+        public static async Task<OrderDTO> UpdateOrderStatus(UpdateStatusDTO orderDto)
+        {
+            var response = await HttpClient.PutAsJsonAsync("http://localhost:5005/api/orderapi", orderDto);
+            response.EnsureSuccessStatusCode();
+            var updatedOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
+            return updatedOrder;
+        }
     }
 }
