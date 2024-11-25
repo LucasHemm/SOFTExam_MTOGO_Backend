@@ -10,11 +10,12 @@ public class FeedbackFacade
     //Create feedback
     public static async Task<FeedbackDTO> CreateFeedback(FeedbackDTO feedbackDto)
     {
-        var response = await HttpClient.PostAsJsonAsync("http://localhost:5176/api/feedbackapi", feedbackDto);
+        var response = await HttpClient.PostAsJsonAsync("http://localhost:5005/api/feedbackapi", feedbackDto);
         response.EnsureSuccessStatusCode();
         var createdFeedback = await response.Content.ReadFromJsonAsync<FeedbackDTO>();
         return createdFeedback;
     }
+    
     
     
 }
