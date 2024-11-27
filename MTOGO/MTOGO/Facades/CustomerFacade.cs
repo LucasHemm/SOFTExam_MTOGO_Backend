@@ -17,4 +17,14 @@ public class CustomerFacade
         throw new Exception(response.Content.ReadAsStringAsync().Result);
     }
     
+    public static CustomerDTO GetCustomer(int id)
+    {
+        var response = HttpClient.GetAsync($"{_baseUrl}/{id}").Result;
+        if (response.IsSuccessStatusCode)
+        {
+            return response.Content.ReadFromJsonAsync<CustomerDTO>().Result;
+        }
+        throw new Exception(response.Content.ReadAsStringAsync().Result);
+    }
+    
 }

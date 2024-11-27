@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MTOGO.DTOs;
 using MTOGO.Facades;
+using OrderAndFeedbackService.DTOs;
 
 namespace MTOGO.Api;
 [ApiController]
@@ -49,5 +50,33 @@ public class OrderApi : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+    
+    [HttpGet("status/{status}")]
+    public async Task<IActionResult> GetOrderByStatus(string status)
+    {
+        List<OrderDTO> json = await OrderFacade.GetOrdersByStatus(status);
+        return Ok(json);
+    }
+    
+    [HttpPut("updateIds")]
+    public async Task<IActionResult> UpdateOrderIds([FromBody] UpdateOrderIdsDTO Dto)
+    {
+        try
+        {
+            OrderDTO updatedOrderDto = await OrderFacade.UpdateOrder(Dto);
+            return Ok(updatedOrderDto);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    [HttpGet("agent/{id}")]
+    public async Task<IActionResult> GetOrderByAgent(int id)
+    {
+        List<OrderDTO> json = await OrderFacade.GetOrdersByAgentId(id);
+        return Ok(json);
     }
 }

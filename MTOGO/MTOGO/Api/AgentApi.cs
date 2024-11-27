@@ -14,4 +14,10 @@ public class AgentApi : ControllerBase
     {
         return Ok(AgentFacade.CreateAgent(agentDto));
     }
+    
+    [HttpGet("{id}")]
+    public IActionResult GetAgent(int id)
+    {
+        return Ok(AgentFacade.GetAgent(id));
+    }
 }

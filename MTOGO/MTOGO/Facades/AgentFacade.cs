@@ -14,4 +14,12 @@ public class AgentFacade
         response.EnsureSuccessStatusCode();
         return response.Content.ReadFromJsonAsync<AgentDTO>().Result;
     }
+    
+    public static AgentDTO GetAgent(int id)
+    {
+        var response = HttpClient.GetAsync($"{_baseUrl}/{id}").Result;
+        response.EnsureSuccessStatusCode();
+        return response.Content.ReadFromJsonAsync<AgentDTO>().Result;
+    }
+    
 }
