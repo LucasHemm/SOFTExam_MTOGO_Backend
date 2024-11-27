@@ -79,4 +79,14 @@ public class OrderApi : ControllerBase
         List<OrderDTO> json = await OrderFacade.GetOrdersByAgentId(id);
         return Ok(json);
     }
+    
+    [HttpGet("customer/{id}")]
+    public async Task<IActionResult> GetOrderByCustomer(int id)
+    {
+        List<OrderDTO> json = await OrderFacade.GetOrdersByCustomerID(id);
+        return Ok(json);
+    }
+    
+    
+    
 }

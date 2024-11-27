@@ -10,11 +10,78 @@ public class FeedbackFacade
     //Create feedback
     public static async Task<FeedbackDTO> CreateFeedback(FeedbackDTO feedbackDto)
     {
-        var response = await HttpClient.PostAsJsonAsync("http://localhost:5176/api/feedbackapi", feedbackDto);
-        response.EnsureSuccessStatusCode();
-        var createdFeedback = await response.Content.ReadFromJsonAsync<FeedbackDTO>();
+        FeedbackDTO createdFeedback = null;
+        try
+        {
+            var response = await HttpClient.PostAsJsonAsync("http://localhost:5005/api/feedbackapi", feedbackDto);
+            response.EnsureSuccessStatusCode();
+            createdFeedback = await response.Content.ReadFromJsonAsync<FeedbackDTO>();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        try
+        {
+            List<FeedbackDTO> agentFeedbacks = await GetFeedbacksByAgentId(createdFeedback.OrderDTO.AgentId);
+            List<FeedbackDTO> restaurantFeedbacks = await GetFeedbakcsByRestaurantId(createdFeedback.OrderDTO.RestaurantId);
+        
+            UpdateRatingDTO agentRatingDto = new UpdateRatingDTO(feedbackDto.OrderDTO.AgentId, agentFeedbacks.Average(feedback => feedback.Agentrating),agentFeedbacks.Count);
+            UpdateRatingDTO restaurantRatingDto = new UpdateRatingDTO(feedbackDto.OrderDTO.RestaurantId, restaurantFeedbacks.Average(feedback => feedback.RestaurantRating),restaurantFeedbacks.Count);
+        
+            await UpdateAgentRating(agentRatingDto);
+            await UpdateRestaurantRating(restaurantRatingDto);
+            
+        }catch(Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        try
+        {
+            UpdateStatusDTO updateStatusDto = new UpdateStatusDTO(createdFeedback.OrderDTO.Id, "completed");
+            await OrderFacade.UpdateOrderStatus(updateStatusDto);
+            
+        }catch(Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        
+        
         return createdFeedback;
     }
     
+    
+    private static async Task<List<FeedbackDTO>>GetFeedbacksByAgentId(int agentId)
+    {
+        var response = await HttpClient.GetAsync("http://localhost:5005/api/feedbackapi/agent/" + agentId);
+        response.EnsureSuccessStatusCode();
+        var feedbacks = await response.Content.ReadFromJsonAsync<List<FeedbackDTO>>();
+        return feedbacks;
+    }
+    
+    private static async Task<List<FeedbackDTO>> GetFeedbakcsByRestaurantId(int restaurantId)
+    {
+        var response = await HttpClient.GetAsync("http://localhost:5005/api/feedbackapi/restaurant/" + restaurantId);
+        response.EnsureSuccessStatusCode();
+        var feedbacks = await response.Content.ReadFromJsonAsync<List<FeedbackDTO>>();
+        return feedbacks;
+    }
+    
+    private static async Task UpdateAgentRating(UpdateRatingDTO ratingDto)
+    {
+        var response = await HttpClient.PutAsJsonAsync("http://localhost:5037/api/agentapi/rating", ratingDto);
+        response.EnsureSuccessStatusCode();
+    }
+    
+    private static async Task UpdateRestaurantRating(UpdateRatingDTO ratingDto)
+    {
+        var response = await HttpClient.PutAsJsonAsync("http://localhost:5176/api/restaurantapi/rating", ratingDto);
+        response.EnsureSuccessStatusCode();
+    }
     
 }

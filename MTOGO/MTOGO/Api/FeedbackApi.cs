@@ -8,12 +8,7 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class FeedbackApi : ControllerBase
 {
-    private readonly FeedbackFacade _feedbackFacade;
-    
-    public FeedbackApi(FeedbackFacade feedbackFacade)
-    {
-        _feedbackFacade = feedbackFacade;
-    }
+
     
     // POST: api/Feedback
     [HttpPost]

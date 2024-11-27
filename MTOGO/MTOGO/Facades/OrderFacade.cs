@@ -109,5 +109,13 @@ namespace MTOGO.Facades
             var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
             return orders;
         }
+        
+        public static async Task<List<OrderDTO>> GetOrdersByCustomerID(int customerId)
+        {
+            var response = await HttpClient.GetAsync($"http://localhost:5005/api/orderapi/customer/{customerId}");
+            response.EnsureSuccessStatusCode();
+            var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
+            return orders;
+        }
     }
 }
