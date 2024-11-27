@@ -14,5 +14,11 @@ public class CustomerApi : ControllerBase
     {
         return Ok(CustomerFacade.CreateCustomer(customerDto));
     }
+    
+    [HttpGet("{id}")]
+    public IActionResult GetCustomer(int id)
+    {
+        return Ok(CustomerFacade.GetCustomer(id));
+    }
   
 }

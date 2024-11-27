@@ -1,4 +1,5 @@
 ﻿using MTOGO.DTOs;
+using OrderAndFeedbackService.DTOs;
 
 namespace MTOGO.Facades
 {
@@ -83,6 +84,30 @@ namespace MTOGO.Facades
             response.EnsureSuccessStatusCode();
             var updatedOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
             return updatedOrder;
+        }
+        
+        public static async Task<List<OrderDTO>> GetOrdersByStatus(string status)
+        {
+           var response = await HttpClient.GetAsync($"http://localhost:5005/api/orderapi/status/{status}");
+              response.EnsureSuccessStatusCode();
+                var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
+                return orders;
+        }
+        
+        public static async Task<OrderDTO> UpdateOrder(UpdateOrderIdsDTO dto)
+        {
+            var response = await HttpClient.PutAsJsonAsync($"http://localhost:5005/api/orderapi/UpdateIds", dto);
+            response.EnsureSuccessStatusCode();
+            var updatedOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
+            return updatedOrder;
+        }
+        
+        public static async Task<List<OrderDTO>> GetOrdersByAgentId(int agentId)
+        {
+            var response = await HttpClient.GetAsync($"http://localhost:5005/api/orderapi/agent/{agentId}");
+            response.EnsureSuccessStatusCode();
+            var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
+            return orders;
         }
     }
 }
