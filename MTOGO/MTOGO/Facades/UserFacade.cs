@@ -8,11 +8,11 @@ public class UserFacade
     
     public static Task<UserDTO> LoginUser(UserDTO user)
     {
-        return HttpClient.PostAsJsonAsync("http://localhost:5185/api/userapi/login", user).Result.Content.ReadFromJsonAsync<UserDTO>();
+        return HttpClient.PostAsJsonAsync("http://user_app:8080/api/userapi/login", user).Result.Content.ReadFromJsonAsync<UserDTO>();
     }
     
     public static Task<UserDTO> CreateUser(UserDTO user)
     {
-        return HttpClient.PostAsJsonAsync("http://localhost:5185/api/userapi", user).Result.Content.ReadFromJsonAsync<UserDTO>();
+        return HttpClient.PostAsJsonAsync("http://user_app:8080/api/userapi", user).Result.Content.ReadFromJsonAsync<UserDTO>();
     }
 }

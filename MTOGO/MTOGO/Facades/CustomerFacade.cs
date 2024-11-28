@@ -5,7 +5,7 @@ namespace MTOGO.Facades;
 public class CustomerFacade
 {
     private static readonly HttpClient HttpClient = new HttpClient();
-    private static readonly string _baseUrl = "http://localhost:5042/api/customerapi";
+    private static readonly string _baseUrl = "http://customer_app:8080/api/customerapi";
     
     public static CustomerDTO CreateCustomer(CustomerDTO customerDto)
     {

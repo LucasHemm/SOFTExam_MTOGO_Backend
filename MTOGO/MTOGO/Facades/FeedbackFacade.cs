@@ -13,7 +13,7 @@ public class FeedbackFacade
         FeedbackDTO createdFeedback = null;
         try
         {
-            var response = await HttpClient.PostAsJsonAsync("http://localhost:5005/api/feedbackapi", feedbackDto);
+            var response = await HttpClient.PostAsJsonAsync("http://orderandfeedback_app:8080/api/feedbackapi", feedbackDto);
             response.EnsureSuccessStatusCode();
             createdFeedback = await response.Content.ReadFromJsonAsync<FeedbackDTO>();
         }
