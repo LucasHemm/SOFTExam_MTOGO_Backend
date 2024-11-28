@@ -9,7 +9,7 @@ public class PaymentFacade
 
     public static async Task<PaymentDTO> GetPaymentById(int id)
     {
-        var response = await HttpClient.GetAsync("http://localhost:5036/api/paymentapi/"+id);
+        var response = await HttpClient.GetAsync("http://payment_app:8080/api/paymentapi/"+id);
         response.EnsureSuccessStatusCode();
         var payments = await response.Content.ReadFromJsonAsync<PaymentDTO>();
         return payments;
@@ -17,7 +17,7 @@ public class PaymentFacade
     
     public static async Task<PaymentDTO> CreatePayment(PaymentRequestDto paymentRequestDto)
     {
-        var response = await HttpClient.PostAsJsonAsync("http://localhost:5036/api/paymentapi", paymentRequestDto);
+        var response = await HttpClient.PostAsJsonAsync("http://payment_app:8080/api/paymentapi", paymentRequestDto);
         response.EnsureSuccessStatusCode();
         var payments = await response.Content.ReadFromJsonAsync<PaymentDTO>();
         return payments;

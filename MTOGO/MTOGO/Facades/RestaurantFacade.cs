@@ -8,7 +8,7 @@ public class RestaurantFacade
     
     public static async Task<List<RestaurantDTO>> GetRestaurants()
     {
-        var response = await HttpClient.GetAsync("http://localhost:5176/api/restaurantapi");
+        var response = await HttpClient.GetAsync("http://restaurant_app:8080/api/restaurantapi");
         response.EnsureSuccessStatusCode();
         var restaurants = await response.Content.ReadFromJsonAsync<List<RestaurantDTO>>();
         return restaurants;
@@ -16,7 +16,7 @@ public class RestaurantFacade
     
     public static async Task<RestaurantDTO> GetRestaurant(int id)
     {
-        var response = await HttpClient.GetAsync($"http://localhost:5176/api/restaurantapi/{id}");
+        var response = await HttpClient.GetAsync($"http://restaurant_app:8080/api/restaurantapi/{id}");
         response.EnsureSuccessStatusCode();
         var restaurant = await response.Content.ReadFromJsonAsync<RestaurantDTO>();
         return restaurant;
@@ -24,7 +24,7 @@ public class RestaurantFacade
     
     public static async Task<RestaurantDTO> CreateRestaurant(RestaurantDTO restaurant)
     {
-        var response = await HttpClient.PostAsJsonAsync("http://localhost:5176/api/restaurantapi", restaurant);
+        var response = await HttpClient.PostAsJsonAsync("http://restaurant_app:8080/api/restaurantapi", restaurant);
         response.EnsureSuccessStatusCode();
         var createdRestaurant = await response.Content.ReadFromJsonAsync<RestaurantDTO>();
         return createdRestaurant;
@@ -32,7 +32,7 @@ public class RestaurantFacade
     
     public static async Task<RestaurantDTO> UpdateRestaurant(RestaurantDTO restaurant)
     {
-        var response = await HttpClient.PutAsJsonAsync("http://localhost:5176/api/restaurantapi", restaurant);
+        var response = await HttpClient.PutAsJsonAsync("http://restaurant_app:8080/api/restaurantapi", restaurant);
         response.EnsureSuccessStatusCode();
         var updatedRestaurant = await response.Content.ReadFromJsonAsync<RestaurantDTO>();
         return updatedRestaurant;
@@ -40,7 +40,7 @@ public class RestaurantFacade
     
     public static async Task<MenuItemDTO> CreateMenuItem(MenuItemDTO menuItem)
     {
-        var response = await HttpClient.PostAsJsonAsync("http://localhost:5176/api/restaurantapi/menuitem", menuItem);
+        var response = await HttpClient.PostAsJsonAsync("http://restaurant_app:8080/api/restaurantapi/menuitem", menuItem);
         response.EnsureSuccessStatusCode();
         var createdMenuItem = await response.Content.ReadFromJsonAsync<MenuItemDTO>();
         return createdMenuItem;
@@ -48,7 +48,7 @@ public class RestaurantFacade
     
     public static async Task<MenuItemDTO> UpdateMenuItem(MenuItemDTO menuItem)
     {
-        var response = await HttpClient.PutAsJsonAsync("http://localhost:5176/api/restaurantapi/menuitem", menuItem);
+        var response = await HttpClient.PutAsJsonAsync("http://restaurant_app:8080/api/restaurantapi/menuitem", menuItem);
         response.EnsureSuccessStatusCode();
         var updatedMenuItem = await response.Content.ReadFromJsonAsync<MenuItemDTO>();
         return updatedMenuItem;
@@ -56,7 +56,7 @@ public class RestaurantFacade
     
     public static async Task<List<MenuItemDTO>> GetMenuItems(int id)
     {
-        var response = await HttpClient.GetAsync($"http://localhost:5176/api/restaurantapi/menuitems/{id}");
+        var response = await HttpClient.GetAsync($"http://restaurant_app:8080/api/restaurantapi/menuitems/{id}");
         response.EnsureSuccessStatusCode();
         var menuItems = await response.Content.ReadFromJsonAsync<List<MenuItemDTO>>();
         return menuItems;

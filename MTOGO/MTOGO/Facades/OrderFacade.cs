@@ -10,7 +10,7 @@ namespace MTOGO.Facades
         public static async Task<string> GetAllOrders()
         {
             // Define the base address of the API
-            string apiUrl = "http://localhost:5005/api/orderapi";
+            string apiUrl = "http://orderandfeedback_app:8080/api/orderapi";
 
             try
             {
