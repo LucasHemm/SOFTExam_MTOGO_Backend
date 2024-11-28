@@ -3,9 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTOGO", "MTOGO\MTOGO.csproj", "{E22400F8-B545-478D-A00E-10C7A079D4BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0675B82-F6DE-471B-96E8-7B02C4B3B8AF}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTOGOTEST", "MTOGOTEST\MTOGOTEST.csproj", "{92A8796C-95ED-4B5E-BFB7-0F2129E9974C}"
 EndProject
