@@ -1,5 +1,6 @@
 
 using MTOGO.Facades;
+using Prometheus;
 
 namespace MTOGO;
 
@@ -53,9 +54,11 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
         }
+        app.UseRouting();
+        app.UseMetricServer(); // Default /metrics endpoint
+        app.UseHttpMetrics(); // Enable HttpMetrics
         
         app.UseCors("AllowAll");
-        app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
 
