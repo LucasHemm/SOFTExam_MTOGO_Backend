@@ -41,7 +41,7 @@ namespace MTOGO.Facades
         public static async Task<string> GetOrder(int id)
         {
             // Define the base address of the API
-            string apiUrl = $"http://localhost:5005/api/orderapi/{id}";
+            string apiUrl = $"http://orderandfeedback_app:8080/api/orderapi/{id}";
 
             try
             {
@@ -71,7 +71,7 @@ namespace MTOGO.Facades
 
         public static async Task<OrderDTO> CreateOrder(OrderDTO orderDto)
         {
-            var response = await HttpClient.PostAsJsonAsync("http://localhost:5005/api/orderapi", orderDto);
+            var response = await HttpClient.PostAsJsonAsync("http://orderandfeedback_app:8080/api/orderapi", orderDto);
             response.EnsureSuccessStatusCode();
             var createdOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
             return createdOrder;
@@ -80,7 +80,7 @@ namespace MTOGO.Facades
 
         public static async Task<OrderDTO> UpdateOrderStatus(UpdateStatusDTO orderDto)
         {
-            var response = await HttpClient.PutAsJsonAsync("http://localhost:5005/api/orderapi", orderDto);
+            var response = await HttpClient.PutAsJsonAsync("http://orderandfeedback_app:8080/api/orderapi", orderDto);
             response.EnsureSuccessStatusCode();
             var updatedOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
             return updatedOrder;
@@ -88,7 +88,7 @@ namespace MTOGO.Facades
         
         public static async Task<List<OrderDTO>> GetOrdersByStatus(string status)
         {
-           var response = await HttpClient.GetAsync($"http://localhost:5005/api/orderapi/status/{status}");
+           var response = await HttpClient.GetAsync($"http://orderandfeedback_app:8080/api/orderapi/status/{status}");
               response.EnsureSuccessStatusCode();
                 var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
                 return orders;
@@ -96,7 +96,7 @@ namespace MTOGO.Facades
         
         public static async Task<OrderDTO> UpdateOrder(UpdateOrderIdsDTO dto)
         {
-            var response = await HttpClient.PutAsJsonAsync($"http://localhost:5005/api/orderapi/UpdateIds", dto);
+            var response = await HttpClient.PutAsJsonAsync($"http://orderandfeedback_app:8080/api/orderapi/UpdateIds", dto);
             response.EnsureSuccessStatusCode();
             var updatedOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
             return updatedOrder;
@@ -104,7 +104,7 @@ namespace MTOGO.Facades
         
         public static async Task<List<OrderDTO>> GetOrdersByAgentId(int agentId)
         {
-            var response = await HttpClient.GetAsync($"http://localhost:5005/api/orderapi/agent/{agentId}");
+            var response = await HttpClient.GetAsync($"http://orderandfeedback_app:8080/api/orderapi/agent/{agentId}");
             response.EnsureSuccessStatusCode();
             var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
             return orders;
@@ -112,7 +112,7 @@ namespace MTOGO.Facades
         
         public static async Task<List<OrderDTO>> GetOrdersByCustomerID(int customerId)
         {
-            var response = await HttpClient.GetAsync($"http://localhost:5005/api/orderapi/customer/{customerId}");
+            var response = await HttpClient.GetAsync($"http://orderandfeedback_app:8080/api/orderapi/customer/{customerId}");
             response.EnsureSuccessStatusCode();
             var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
             return orders;
