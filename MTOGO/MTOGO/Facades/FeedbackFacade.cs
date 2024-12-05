@@ -58,7 +58,7 @@ public class FeedbackFacade
     
     private static async Task<List<FeedbackDTO>>GetFeedbacksByAgentId(int agentId)
     {
-        var response = await HttpClient.GetAsync("http://localhost:5005/api/feedbackapi/agent/" + agentId);
+        var response = await HttpClient.GetAsync("http://orderandfeedback_app:8080/api/feedbackapi/agent/" + agentId);
         response.EnsureSuccessStatusCode();
         var feedbacks = await response.Content.ReadFromJsonAsync<List<FeedbackDTO>>();
         return feedbacks;
@@ -66,7 +66,7 @@ public class FeedbackFacade
     
     private static async Task<List<FeedbackDTO>> GetFeedbakcsByRestaurantId(int restaurantId)
     {
-        var response = await HttpClient.GetAsync("http://localhost:5005/api/feedbackapi/restaurant/" + restaurantId);
+        var response = await HttpClient.GetAsync("http://orderandfeedback_app:8080/api/feedbackapi/restaurant/" + restaurantId);
         response.EnsureSuccessStatusCode();
         var feedbacks = await response.Content.ReadFromJsonAsync<List<FeedbackDTO>>();
         return feedbacks;
@@ -74,13 +74,13 @@ public class FeedbackFacade
     
     private static async Task UpdateAgentRating(UpdateRatingDTO ratingDto)
     {
-        var response = await HttpClient.PutAsJsonAsync("http://localhost:5037/api/agentapi/rating", ratingDto);
+        var response = await HttpClient.PutAsJsonAsync("http://agent_app:8080/api/agentapi/rating", ratingDto);
         response.EnsureSuccessStatusCode();
     }
     
     private static async Task UpdateRestaurantRating(UpdateRatingDTO ratingDto)
     {
-        var response = await HttpClient.PutAsJsonAsync("http://localhost:5176/api/restaurantapi/rating", ratingDto);
+        var response = await HttpClient.PutAsJsonAsync("http://restaurant_app:8080/api/restaurantapi/rating", ratingDto);
         response.EnsureSuccessStatusCode();
     }
     
