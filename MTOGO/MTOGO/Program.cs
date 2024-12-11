@@ -54,7 +54,7 @@ public class Program
         // CustomerFacade
         builder.Services.AddHttpClient<CustomerFacade>(client =>
         {
-            string s = builder.Configuration["ApiSettings:CustomerUrl"] ?? "http://customer_app:8080/api/customerapi";
+            string s = "http://customer_app:8080/api/customerapi";
             client.BaseAddress = new Uri(s);
         });
         builder.Services.AddSingleton<ICustomerInterface, CustomerFacade>();
