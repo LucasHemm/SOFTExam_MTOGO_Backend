@@ -5,6 +5,6 @@ namespace MTOGO.Interfaces;
 
 public interface ICustomerInterface
 {
-    CustomerDTO CreateCustomer(CustomerDTO customerDto);
-    CustomerDTO GetCustomer(int id);
+    Task<CustomerDTO> CreateCustomer(CustomerDTO customerDto);
+    Task<CustomerDTO> GetCustomer(int id);
 }

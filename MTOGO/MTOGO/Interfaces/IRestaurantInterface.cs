@@ -1,7 +1,8 @@
 ﻿using MTOGO.DTOs.RestaurantDTOs;
 
-namespace MTOGO.Interfaces
+using MTOGO.DTOs;
 
+namespace MTOGO.Interfaces
 {
     public interface IRestaurantInterface
     {
@@ -12,5 +13,6 @@ namespace MTOGO.Interfaces
         Task<MenuItemDTO> CreateMenuItem(MenuItemDTO menuItem);
         Task<MenuItemDTO> UpdateMenuItem(MenuItemDTO menuItem);
         Task<List<MenuItemDTO>> GetMenuItems(int id);
+        Task UpdateRestaurantRating(UpdateRatingDTO ratingDto);
     }
 }

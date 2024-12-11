@@ -8,6 +8,12 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class UserApi : ControllerBase
 {
+    private readonly UserFacade _userFacade;
+    
+    public UserApi(UserFacade userFacade)
+    {
+        _userFacade = userFacade;
+    }
     
     //Create user
     [HttpPost]
@@ -15,7 +21,7 @@ public class UserApi : ControllerBase
     {
         try
         {
-            UserDTO createdUser = await UserFacade.CreateUser(userDto);
+            UserDTO createdUser = await _userFacade.CreateUserAsync(userDto);
             return Ok(createdUser);
         }
         catch (Exception ex)
@@ -30,7 +36,7 @@ public class UserApi : ControllerBase
     {
         try
         {
-            UserDTO loggedInUser = await UserFacade.LoginUser(userDto);
+            UserDTO loggedInUser = await _userFacade.LoginUserAsync(userDto);
             return Ok(loggedInUser);
         }
         catch (Exception ex)

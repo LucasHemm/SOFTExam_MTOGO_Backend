@@ -8,11 +8,19 @@ namespace MTOGO.Api;
 
 public class RestaurantApi : ControllerBase
 {
+    
+    private readonly RestaurantFacade _restaurantFacade; 
+    
+    public RestaurantApi(RestaurantFacade restaurantFacade)
+    {
+        _restaurantFacade = restaurantFacade;
+    }
+    
     //Get all restaurants
     [HttpGet]
     public async Task<IActionResult> GetRestaurants()
     {
-        List<RestaurantDTO> dtos = await RestaurantFacade.GetRestaurants();
+        List<RestaurantDTO> dtos = await _restaurantFacade.GetRestaurants();
         return Ok(dtos);
     }
     
@@ -22,7 +30,7 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            RestaurantDTO dto = await RestaurantFacade.GetRestaurant(id);
+            RestaurantDTO dto = await _restaurantFacade.GetRestaurant(id);
             return Ok(dto);
         }
         catch (Exception ex)
@@ -37,7 +45,7 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            RestaurantDTO createdRestaurant = await RestaurantFacade.CreateRestaurant(restaurantDto);
+            RestaurantDTO createdRestaurant = await _restaurantFacade.CreateRestaurant(restaurantDto);
             return Ok(createdRestaurant);
         }
         catch (Exception ex)
@@ -52,7 +60,7 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            RestaurantDTO updatedRestaurant = await RestaurantFacade.UpdateRestaurant(restaurantDto);
+            RestaurantDTO updatedRestaurant = await _restaurantFacade.UpdateRestaurant(restaurantDto);
             return Ok(updatedRestaurant);
         }
         catch (Exception ex)
@@ -67,7 +75,7 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            MenuItemDTO createdMenuItem = await RestaurantFacade.CreateMenuItem(menuItemDto);
+            MenuItemDTO createdMenuItem = await _restaurantFacade.CreateMenuItem(menuItemDto);
             return Ok(createdMenuItem);
         }
         catch (Exception ex)
@@ -82,7 +90,7 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            MenuItemDTO updatedMenuItem = await RestaurantFacade.UpdateMenuItem(menuItemDto);
+            MenuItemDTO updatedMenuItem = await _restaurantFacade.UpdateMenuItem(menuItemDto);
             return Ok(updatedMenuItem);
         }
         catch (Exception ex)
@@ -97,7 +105,7 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            List<MenuItemDTO> dtos = await RestaurantFacade.GetMenuItems(id);
+            List<MenuItemDTO> dtos = await _restaurantFacade.GetMenuItems(id);
             return Ok(dtos);
         }
         catch (Exception ex)

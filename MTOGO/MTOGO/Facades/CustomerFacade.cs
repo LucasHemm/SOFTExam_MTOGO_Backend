@@ -1,30 +1,47 @@
 ﻿using MTOGO.DTOs.CustomerDTOs;
+using MTOGO.Interfaces;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using System;
 
-namespace MTOGO.Facades;
-
-public class CustomerFacade
+namespace MTOGO.Facades
 {
-    private static readonly HttpClient HttpClient = new HttpClient();
-    private static readonly string _baseUrl = "http://customer_app:8080/api/customerapi";
-    
-    public static CustomerDTO CreateCustomer(CustomerDTO customerDto)
+    public class CustomerFacade : BaseFacade, ICustomerInterface
     {
-        var response = HttpClient.PostAsJsonAsync($"{_baseUrl}", customerDto).Result;
-        if (response.IsSuccessStatusCode)
+        public CustomerFacade(HttpClient httpClient) : base(httpClient) { }
+
+        public async Task<CustomerDTO> CreateCustomer(CustomerDTO customerDto)
         {
-            return response.Content.ReadFromJsonAsync<CustomerDTO>().Result;
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync("", customerDto);
+                response.EnsureSuccessStatusCode();
+                var createdCustomer = await response.Content.ReadFromJsonAsync<CustomerDTO>();
+                return createdCustomer;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error creating customer: {e}");
+                throw;
+            }
         }
-        throw new Exception(response.Content.ReadAsStringAsync().Result);
-    }
-    
-    public static CustomerDTO GetCustomer(int id)
-    {
-        var response = HttpClient.GetAsync($"{_baseUrl}/{id}").Result;
-        if (response.IsSuccessStatusCode)
+
+        public async Task<CustomerDTO> GetCustomer(int id)
         {
-            return response.Content.ReadFromJsonAsync<CustomerDTO>().Result;
+            try
+            {
+                var response = await _httpClient.GetAsync($"{id}");
+                response.EnsureSuccessStatusCode();
+                var customer = await response.Content.ReadFromJsonAsync<CustomerDTO>();
+                return customer;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error fetching customer with ID {id}: {e}");
+                throw;
+            }
         }
-        throw new Exception(response.Content.ReadAsStringAsync().Result);
-    }
+
     
+    }
 }

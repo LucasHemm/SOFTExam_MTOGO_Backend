@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MTOGOTEST")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00c031725456aca4610a1837a98cd2307d85c1c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3ef0f955af615f2b82cb1b3e76f8eb839c24cc0")]
 [assembly: System.Reflection.AssemblyProductAttribute("MTOGOTEST")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MTOGOTEST")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
