@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MTOGO.DTOs.UserDTO;
 using MTOGO.Facades;
+using MTOGO.Factories;
+using MTOGO.Interfaces;
 
 namespace MTOGO.Api;
 
@@ -8,11 +10,11 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class UserApi : ControllerBase
 {
-    private readonly UserFacade _userFacade;
-    
-    public UserApi(UserFacade userFacade)
+    private readonly IFacadeFactory _facadeFactory;
+  
+    public UserApi(IFacadeFactory facadeFactory)
     {
-        _userFacade = userFacade;
+        _facadeFactory = facadeFactory;
     }
     
     //Create user
@@ -21,7 +23,8 @@ public class UserApi : ControllerBase
     {
         try
         {
-            UserDTO createdUser = await _userFacade.CreateUserAsync(userDto);
+            IUserInterface userFacade = _facadeFactory.GetUserFacade();
+            UserDTO createdUser = await userFacade.CreateUserAsync(userDto);
             return Ok(createdUser);
         }
         catch (Exception ex)
@@ -36,7 +39,8 @@ public class UserApi : ControllerBase
     {
         try
         {
-            UserDTO loggedInUser = await _userFacade.LoginUserAsync(userDto);
+            IUserInterface userFacade = _facadeFactory.GetUserFacade();
+            UserDTO loggedInUser = await userFacade.LoginUserAsync(userDto);
             return Ok(loggedInUser);
         }
         catch (Exception ex)

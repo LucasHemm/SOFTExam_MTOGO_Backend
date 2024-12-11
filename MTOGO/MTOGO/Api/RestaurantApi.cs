@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MTOGO.DTOs.RestaurantDTOs;
 using MTOGO.Facades;
+using MTOGO.Factories;
+using MTOGO.Interfaces;
 
 namespace MTOGO.Api;
 [ApiController]
@@ -9,18 +11,20 @@ namespace MTOGO.Api;
 public class RestaurantApi : ControllerBase
 {
     
-    private readonly RestaurantFacade _restaurantFacade; 
+    private readonly IFacadeFactory _facadeFactory;
     
-    public RestaurantApi(RestaurantFacade restaurantFacade)
+    public RestaurantApi(IFacadeFactory factory)
     {
-        _restaurantFacade = restaurantFacade;
+        _facadeFactory = factory;
     }
+  
     
     //Get all restaurants
     [HttpGet]
     public async Task<IActionResult> GetRestaurants()
     {
-        List<RestaurantDTO> dtos = await _restaurantFacade.GetRestaurants();
+        IRestaurantInterface restaurantFacade = _facadeFactory.GetResFacade();
+        List<RestaurantDTO> dtos = await restaurantFacade.GetRestaurants();
         return Ok(dtos);
     }
     
@@ -30,7 +34,8 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            RestaurantDTO dto = await _restaurantFacade.GetRestaurant(id);
+            IRestaurantInterface restaurantFacade = _facadeFactory.GetResFacade();
+            RestaurantDTO dto = await restaurantFacade.GetRestaurant(id);
             return Ok(dto);
         }
         catch (Exception ex)
@@ -45,7 +50,8 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            RestaurantDTO createdRestaurant = await _restaurantFacade.CreateRestaurant(restaurantDto);
+            IRestaurantInterface restaurantFacade = _facadeFactory.GetResFacade();
+            RestaurantDTO createdRestaurant = await restaurantFacade.CreateRestaurant(restaurantDto);
             return Ok(createdRestaurant);
         }
         catch (Exception ex)
@@ -60,7 +66,8 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            RestaurantDTO updatedRestaurant = await _restaurantFacade.UpdateRestaurant(restaurantDto);
+            IRestaurantInterface restaurantFacade = _facadeFactory.GetResFacade();
+            RestaurantDTO updatedRestaurant = await restaurantFacade.UpdateRestaurant(restaurantDto);
             return Ok(updatedRestaurant);
         }
         catch (Exception ex)
@@ -75,7 +82,8 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            MenuItemDTO createdMenuItem = await _restaurantFacade.CreateMenuItem(menuItemDto);
+            IRestaurantInterface restaurantFacade = _facadeFactory.GetResFacade();
+            MenuItemDTO createdMenuItem = await restaurantFacade.CreateMenuItem(menuItemDto);
             return Ok(createdMenuItem);
         }
         catch (Exception ex)
@@ -90,7 +98,8 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            MenuItemDTO updatedMenuItem = await _restaurantFacade.UpdateMenuItem(menuItemDto);
+            IRestaurantInterface restaurantFacade = _facadeFactory.GetResFacade();
+            MenuItemDTO updatedMenuItem = await restaurantFacade.UpdateMenuItem(menuItemDto);
             return Ok(updatedMenuItem);
         }
         catch (Exception ex)
@@ -105,7 +114,8 @@ public class RestaurantApi : ControllerBase
     {
         try
         {
-            List<MenuItemDTO> dtos = await _restaurantFacade.GetMenuItems(id);
+            IRestaurantInterface restaurantFacade = _facadeFactory.GetResFacade();
+            List<MenuItemDTO> dtos = await restaurantFacade.GetMenuItems(id);
             return Ok(dtos);
         }
         catch (Exception ex)

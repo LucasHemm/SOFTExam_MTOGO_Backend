@@ -2,6 +2,8 @@
 using MTOGO.DTOs;
 using MTOGO.DTOs.FeedbackDTOs;
 using MTOGO.Facades;
+using MTOGO.Factories;
+using MTOGO.Interfaces;
 
 namespace MTOGO.Api;
 [ApiController]
@@ -9,12 +11,13 @@ namespace MTOGO.Api;
 public class FeedbackApi : ControllerBase
 {
 
-    private readonly FeedbackFacade _feedbackFacade;
+    private readonly IFacadeFactory _facadeFactory;
     
-    public FeedbackApi(FeedbackFacade feedbackFacade)
+    public FeedbackApi(IFacadeFactory factory)
     {
-        _feedbackFacade = feedbackFacade;
+        _facadeFactory = factory;
     }
+   
     
     // POST: api/Feedback
     [HttpPost]
@@ -22,7 +25,8 @@ public class FeedbackApi : ControllerBase
     {
         try
         {
-            FeedbackDTO createdFeedback = await _feedbackFacade.CreateFeedback(feedbackDto);
+            IFeedbackInterface feedbackFacade = _facadeFactory.GetFeedbackFacade();
+            FeedbackDTO createdFeedback = await feedbackFacade.CreateFeedback(feedbackDto);
             return Ok(createdFeedback);
         }
         catch (Exception ex)

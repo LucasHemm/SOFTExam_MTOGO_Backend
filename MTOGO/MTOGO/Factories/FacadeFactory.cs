@@ -11,37 +11,37 @@ public class FacadeFactory : IFacadeFactory
         _serviceProvider = serviceProvider;
     }
 
-    public IUserInterface CreateUserFacade()
+    public IUserInterface GetUserFacade()
     {
         return _serviceProvider.GetRequiredService<IUserInterface>();
     }
 
-    public IOrderInterface CreateOrderFacade()
+    public IOrderInterface GetOrderFacade()
     {
         return _serviceProvider.GetRequiredService<IOrderInterface>();
     }
 
-    public IFeedbackInterface CreateFeedbackFacade()
+    public IFeedbackInterface GetFeedbackFacade()
     {
         return _serviceProvider.GetRequiredService<IFeedbackInterface>();
     }
     
-    public IPaymentInterface CreatePaymentFacade()
+    public IPaymentInterface GetPaymentFacade()
     {
         return _serviceProvider.GetRequiredService<IPaymentInterface>();
     }
     
-    public IAgentInterface CreateAgentFacade()
+    public IAgentInterface GetAgentFacade()
     {
         return _serviceProvider.GetRequiredService<IAgentInterface>();
     }
     
-    public ICustomerInterface CreateCustomerFacade()
+    public ICustomerInterface GetCustomerFacade()
     {
         return _serviceProvider.GetRequiredService<ICustomerInterface>();
     }
     
-    public IRestaurantInterface CreateResFacade()
+    public IRestaurantInterface GetResFacade()
     {
         return _serviceProvider.GetRequiredService<IRestaurantInterface>();
     }
