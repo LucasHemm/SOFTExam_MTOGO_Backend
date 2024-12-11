@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MTOGO.DTOs;
 using MTOGO.Facades;
+using MTOGO.Factories;
+using MTOGO.Interfaces;
 using OrderAndFeedbackService.DTOs;
 
 namespace MTOGO.Api;
@@ -9,18 +11,20 @@ namespace MTOGO.Api;
 public class OrderApi : ControllerBase
 {
     
-    private readonly OrderFacade _orderFacade;
+    private readonly IFacadeFactory _facadeFactory;
     
-    public OrderApi(OrderFacade orderFacade)
+    public OrderApi(IFacadeFactory factory)
     {
-        _orderFacade = orderFacade;
+        _facadeFactory = factory;
     }
+  
     
     //Get all order
     [HttpGet]
     public async Task<IActionResult> GetOrders()
     {
-        string json = await _orderFacade.GetAllOrders();
+        IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+        string json = await orderFacade.GetAllOrders();
         return Ok(json);
     }
     
@@ -28,7 +32,8 @@ public class OrderApi : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOrder(int id)
     {
-        string json = await _orderFacade.GetOrder(id);
+        IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+        string json = await orderFacade.GetOrder(id);
         return Ok(json);
     }
     
@@ -37,7 +42,8 @@ public class OrderApi : ControllerBase
     {
         try
         {
-            OrderDTO createdOrderDto = await _orderFacade.CreateOrder(orderDto);
+            IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+            OrderDTO createdOrderDto = await orderFacade.CreateOrder(orderDto);
             return Ok(createdOrderDto);
         }
         catch (Exception ex)
@@ -51,7 +57,8 @@ public class OrderApi : ControllerBase
     {
         try
         {
-            OrderDTO updatedOrderDto = await _orderFacade.UpdateOrderStatus(orderDto);
+            IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+            OrderDTO updatedOrderDto = await orderFacade.UpdateOrderStatus(orderDto);
             return Ok(updatedOrderDto);
         }
         catch (Exception ex)
@@ -63,7 +70,8 @@ public class OrderApi : ControllerBase
     [HttpGet("status/{status}")]
     public async Task<IActionResult> GetOrderByStatus(string status)
     {
-        List<OrderDTO> json = await _orderFacade.GetOrdersByStatus(status);
+        IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+        List<OrderDTO> json = await orderFacade.GetOrdersByStatus(status);
         return Ok(json);
     }
     
@@ -72,7 +80,8 @@ public class OrderApi : ControllerBase
     {
         try
         {
-            OrderDTO updatedOrderDto = await _orderFacade.UpdateOrder(Dto);
+            IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+            OrderDTO updatedOrderDto = await orderFacade.UpdateOrder(Dto);
             return Ok(updatedOrderDto);
         }
         catch (Exception ex)
@@ -84,17 +93,16 @@ public class OrderApi : ControllerBase
     [HttpGet("agent/{id}")]
     public async Task<IActionResult> GetOrderByAgent(int id)
     {
-        List<OrderDTO> json = await _orderFacade.GetOrdersByAgentId(id);
+        IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+        List<OrderDTO> json = await orderFacade.GetOrdersByAgentId(id);
         return Ok(json);
     }
     
     [HttpGet("customer/{id}")]
     public async Task<IActionResult> GetOrderByCustomer(int id)
     {
-        List<OrderDTO> json = await _orderFacade.GetOrdersByCustomerID(id);
+        IOrderInterface orderFacade = _facadeFactory.GetOrderFacade();
+        List<OrderDTO> json = await orderFacade.GetOrdersByCustomerID(id);
         return Ok(json);
     }
-    
-    
-    
 }

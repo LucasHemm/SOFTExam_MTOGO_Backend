@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MTOGO.DTOs.PaymentDTOs;
 using MTOGO.Facades;
+using MTOGO.Factories;
+using MTOGO.Interfaces;
 using PaymentService.DTOs;
 
 namespace MTOGO.Api;
@@ -8,18 +10,19 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class PaymentApi : ControllerBase
 {
-    private readonly PaymentFacade _paymentFacade;
+    private readonly IFacadeFactory _facadeFactory;
     
-    public PaymentApi(PaymentFacade paymentFacade)
+    public PaymentApi(IFacadeFactory factory)
     {
-        _paymentFacade = paymentFacade;
+        _facadeFactory = factory;
     }
     
     //Get: api/Payment
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPayment(int id)
     {
-        var payments = await _paymentFacade.GetPaymentById(id);
+        IPaymentInterface paymentFacade = _facadeFactory.GetPaymentFacade();
+        var payments = await paymentFacade.GetPaymentById(id);
         return Ok(payments);
     }
     
@@ -29,7 +32,8 @@ public class PaymentApi : ControllerBase
     {
         try
         {
-            PaymentDTO payment = await _paymentFacade.CreatePayment(request);
+            IPaymentInterface paymentFacade = _facadeFactory.GetPaymentFacade();
+            PaymentDTO payment = await paymentFacade.CreatePayment(request);
             return Ok(payment);
         }
         catch (Exception ex)

@@ -4,13 +4,13 @@ namespace MTOGO.Factories
 {
     public interface IFacadeFactory
     {
-        IUserInterface CreateUserFacade();
-        IOrderInterface CreateOrderFacade();
-        IFeedbackInterface CreateFeedbackFacade();
-        IPaymentInterface CreatePaymentFacade();
-        IAgentInterface CreateAgentFacade();
-        ICustomerInterface CreateCustomerFacade();
-        IRestaurantInterface CreateResFacade();
+        IUserInterface GetUserFacade();
+        IOrderInterface GetOrderFacade();
+        IFeedbackInterface GetFeedbackFacade();
+        IPaymentInterface GetPaymentFacade();
+        IAgentInterface GetAgentFacade();
+        ICustomerInterface GetCustomerFacade();
+        IRestaurantInterface GetResFacade();
         
     }
 }
