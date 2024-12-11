@@ -54,9 +54,12 @@ public class Program
 // CustomerFacade
         builder.Services.AddHttpClient<CustomerFacade>(client =>
         {
-            client.BaseAddress = new Uri(builder.Configuration["ApiSettings:CustomerUrl"]);
+            var baseAddress = builder.Configuration["ApiSettings:CustomerUrl"];
+            Console.WriteLine($"CustomerFacade BaseAddress: {baseAddress}");
+            client.BaseAddress = new Uri(baseAddress);
         });
         builder.Services.AddSingleton<ICustomerInterface, CustomerFacade>();
+
         
 // ResFacade
         builder.Services.AddHttpClient<RestaurantFacade>(client =>
