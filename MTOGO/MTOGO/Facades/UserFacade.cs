@@ -9,7 +9,7 @@ public class UserFacade : BaseFacade, IUserInterface
 
     public async Task<UserDTO> LoginUserAsync(UserDTO user)
     {
-        var response = await _httpClient.PostAsJsonAsync("/login", user);
+        var response = await _httpClient.PostAsJsonAsync("login", user);
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<UserDTO>();
     }
