@@ -14,7 +14,7 @@ namespace MTOGO.Facades
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("", customerDto);
+                var response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress, customerDto);
                 response.EnsureSuccessStatusCode();
                 var createdCustomer = await response.Content.ReadFromJsonAsync<CustomerDTO>();
                 return createdCustomer;
