@@ -8,12 +8,18 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class PaymentApi : ControllerBase
 {
+    private readonly PaymentFacade _paymentFacade;
+    
+    public PaymentApi(PaymentFacade paymentFacade)
+    {
+        _paymentFacade = paymentFacade;
+    }
     
     //Get: api/Payment
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPayment(int id)
     {
-        var payments = await PaymentFacade.GetPaymentById(id);
+        var payments = await _paymentFacade.GetPaymentById(id);
         return Ok(payments);
     }
     
@@ -23,7 +29,7 @@ public class PaymentApi : ControllerBase
     {
         try
         {
-            PaymentDTO payment = await PaymentFacade.CreatePayment(request);
+            PaymentDTO payment = await _paymentFacade.CreatePayment(request);
             return Ok(payment);
         }
         catch (Exception ex)

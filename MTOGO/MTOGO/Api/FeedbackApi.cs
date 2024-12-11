@@ -9,6 +9,12 @@ namespace MTOGO.Api;
 public class FeedbackApi : ControllerBase
 {
 
+    private readonly FeedbackFacade _feedbackFacade;
+    
+    public FeedbackApi(FeedbackFacade feedbackFacade)
+    {
+        _feedbackFacade = feedbackFacade;
+    }
     
     // POST: api/Feedback
     [HttpPost]
@@ -16,7 +22,7 @@ public class FeedbackApi : ControllerBase
     {
         try
         {
-            FeedbackDTO createdFeedback = await FeedbackFacade.CreateFeedback(feedbackDto);
+            FeedbackDTO createdFeedback = await _feedbackFacade.CreateFeedback(feedbackDto);
             return Ok(createdFeedback);
         }
         catch (Exception ex)

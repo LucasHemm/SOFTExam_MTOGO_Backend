@@ -8,17 +8,23 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class CustomerApi : ControllerBase
 {
+    private readonly CustomerFacade _customerFacade;
+    
+    public CustomerApi(CustomerFacade customerFacade)
+    {
+        _customerFacade = customerFacade;
+    }
     
     [HttpPost]
     public IActionResult CreateCustomer([FromBody] CustomerDTO customerDto)
     {
-        return Ok(CustomerFacade.CreateCustomer(customerDto));
+        return Ok(_customerFacade.CreateCustomer(customerDto));
     }
     
     [HttpGet("{id}")]
     public IActionResult GetCustomer(int id)
     {
-        return Ok(CustomerFacade.GetCustomer(id));
+        return Ok(_customerFacade.GetCustomer(id));
     }
   
 }

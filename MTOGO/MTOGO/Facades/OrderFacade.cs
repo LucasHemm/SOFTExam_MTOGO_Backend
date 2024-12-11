@@ -1,121 +1,68 @@
 ﻿using MTOGO.DTOs;
 using OrderAndFeedbackService.DTOs;
+using MTOGO.Interfaces;
+using System.Net.Http.Json;
 
 namespace MTOGO.Facades
 {
-    public class OrderFacade
+    public class OrderFacade : BaseFacade, IOrderInterface
     {
-        private static readonly HttpClient HttpClient = new HttpClient();
+        public OrderFacade(HttpClient httpClient) : base(httpClient) { }
 
-        public static async Task<string> GetAllOrders()
+        public async Task<string> GetAllOrders()
         {
-            // Define the base address of the API
-            string apiUrl = "http://orderandfeedback_app:8080/api/orderapi";
-
-            try
-            {
-                // Send GET request
-                HttpResponseMessage response = await HttpClient.GetAsync(apiUrl);
-
-                // Check if the response is successful
-                if (response.IsSuccessStatusCode)
-                {
-                    // Read the content as a string
-                    string responseData = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Response Data: {responseData}");
-                    return responseData;
-                }
-                else
-                {
-                    Console.WriteLine($"Error: {response.StatusCode}");
-                    return $"Error: Unable to fetch orders. Status Code: {response.StatusCode}";
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception: {ex}");
-                return $"Exception: {ex}";
-            }
-        }
-
-        public static async Task<string> GetOrder(int id)
-        {
-            // Define the base address of the API
-            string apiUrl = $"http://orderandfeedback_app:8080/api/orderapi/{id}";
-
-            try
-            {
-                // Send GET request
-                HttpResponseMessage response = await HttpClient.GetAsync(apiUrl);
-
-                // Check if the response is successful
-                if (response.IsSuccessStatusCode)
-                {
-                    // Read the content as a string
-                    string responseData = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Response Data: {responseData}");
-                    return responseData;
-                }
-                else
-                {
-                    Console.WriteLine($"Error: {response.StatusCode}");
-                    return $"Error: Unable to fetch order. Status Code: {response.StatusCode}";
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception: {ex}");
-                return $"Exception: {ex}";
-            }
-        }
-
-        public static async Task<OrderDTO> CreateOrder(OrderDTO orderDto)
-        {
-            var response = await HttpClient.PostAsJsonAsync("http://orderandfeedback_app:8080/api/orderapi", orderDto);
+            var response = await _httpClient.GetAsync("");
             response.EnsureSuccessStatusCode();
-            var createdOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
-            return createdOrder;
+            return await response.Content.ReadAsStringAsync();
         }
 
-
-        public static async Task<OrderDTO> UpdateOrderStatus(UpdateStatusDTO orderDto)
+        public async Task<string> GetOrder(int id)
         {
-            var response = await HttpClient.PutAsJsonAsync("http://orderandfeedback_app:8080/api/orderapi", orderDto);
+            var response = await _httpClient.GetAsync($"{id}");
             response.EnsureSuccessStatusCode();
-            var updatedOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
-            return updatedOrder;
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<OrderDTO> CreateOrder(OrderDTO orderDto)
+        {
+            var response = await _httpClient.PostAsJsonAsync("", orderDto);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<OrderDTO>();
+        }
+
+        public async Task<OrderDTO> UpdateOrderStatus(UpdateStatusDTO orderDto)
+        {
+            var response = await _httpClient.PutAsJsonAsync("", orderDto);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<OrderDTO>();
         }
         
-        public static async Task<List<OrderDTO>> GetOrdersByStatus(string status)
+        public async Task<List<OrderDTO>> GetOrdersByStatus(string status)
         {
-           var response = await HttpClient.GetAsync($"http://orderandfeedback_app:8080/api/orderapi/status/{status}");
-              response.EnsureSuccessStatusCode();
-                var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
-                return orders;
-        }
-        
-        public static async Task<OrderDTO> UpdateOrder(UpdateOrderIdsDTO dto)
-        {
-            var response = await HttpClient.PutAsJsonAsync($"http://orderandfeedback_app:8080/api/orderapi/UpdateIds", dto);
+            var response = await _httpClient.GetAsync($"status/{status}");
             response.EnsureSuccessStatusCode();
-            var updatedOrder = await response.Content.ReadFromJsonAsync<OrderDTO>();
-            return updatedOrder;
+            return await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
         }
-        
-        public static async Task<List<OrderDTO>> GetOrdersByAgentId(int agentId)
+
+        public async Task<OrderDTO> UpdateOrder(UpdateOrderIdsDTO dto)
         {
-            var response = await HttpClient.GetAsync($"http://orderandfeedback_app:8080/api/orderapi/agent/{agentId}");
+            var response = await _httpClient.PutAsJsonAsync("UpdateIds", dto);
             response.EnsureSuccessStatusCode();
-            var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
-            return orders;
+            return await response.Content.ReadFromJsonAsync<OrderDTO>();
         }
-        
-        public static async Task<List<OrderDTO>> GetOrdersByCustomerID(int customerId)
+
+        public async Task<List<OrderDTO>> GetOrdersByAgentId(int agentId)
         {
-            var response = await HttpClient.GetAsync($"http://orderandfeedback_app:8080/api/orderapi/customer/{customerId}");
+            var response = await _httpClient.GetAsync($"agent/{agentId}");
             response.EnsureSuccessStatusCode();
-            var orders = await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
-            return orders;
+            return await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
+        }
+
+        public async Task<List<OrderDTO>> GetOrdersByCustomerID(int customerId)
+        {
+            var response = await _httpClient.GetAsync($"customer/{customerId}");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<List<OrderDTO>>();
         }
     }
 }

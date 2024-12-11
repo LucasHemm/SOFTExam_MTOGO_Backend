@@ -1,18 +1,23 @@
 ﻿using MTOGO.DTOs.UserDTO;
+using MTOGO.Interfaces;
 
 namespace MTOGO.Facades;
 
-public class UserFacade
+public class UserFacade : BaseFacade, IUserInterface
 {
-    private static readonly HttpClient HttpClient = new HttpClient();
-    
-    public static Task<UserDTO> LoginUser(UserDTO user)
+    public UserFacade(HttpClient httpClient) : base(httpClient) { }
+
+    public async Task<UserDTO> LoginUserAsync(UserDTO user)
     {
-        return HttpClient.PostAsJsonAsync("http://user_app:8080/api/userapi/login", user).Result.Content.ReadFromJsonAsync<UserDTO>();
+        var response = await _httpClient.PostAsJsonAsync("login", user);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<UserDTO>();
     }
-    
-    public static Task<UserDTO> CreateUser(UserDTO user)
+
+    public async Task<UserDTO> CreateUserAsync(UserDTO user)
     {
-        return HttpClient.PostAsJsonAsync("http://user_app:8080/api/userapi", user).Result.Content.ReadFromJsonAsync<UserDTO>();
+        var response = await _httpClient.PostAsJsonAsync("", user);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<UserDTO>();
     }
 }

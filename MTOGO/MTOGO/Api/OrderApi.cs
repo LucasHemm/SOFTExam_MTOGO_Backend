@@ -8,11 +8,19 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class OrderApi : ControllerBase
 {
+    
+    private readonly OrderFacade _orderFacade;
+    
+    public OrderApi(OrderFacade orderFacade)
+    {
+        _orderFacade = orderFacade;
+    }
+    
     //Get all order
     [HttpGet]
     public async Task<IActionResult> GetOrders()
     {
-        string json = await OrderFacade.GetAllOrders();
+        string json = await _orderFacade.GetAllOrders();
         return Ok(json);
     }
     
@@ -20,7 +28,7 @@ public class OrderApi : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOrder(int id)
     {
-        string json = await OrderFacade.GetOrder(id);
+        string json = await _orderFacade.GetOrder(id);
         return Ok(json);
     }
     
@@ -29,7 +37,7 @@ public class OrderApi : ControllerBase
     {
         try
         {
-            OrderDTO createdOrderDto = await OrderFacade.CreateOrder(orderDto);
+            OrderDTO createdOrderDto = await _orderFacade.CreateOrder(orderDto);
             return Ok(createdOrderDto);
         }
         catch (Exception ex)
@@ -43,7 +51,7 @@ public class OrderApi : ControllerBase
     {
         try
         {
-            OrderDTO updatedOrderDto = await OrderFacade.UpdateOrderStatus(orderDto);
+            OrderDTO updatedOrderDto = await _orderFacade.UpdateOrderStatus(orderDto);
             return Ok(updatedOrderDto);
         }
         catch (Exception ex)
@@ -55,7 +63,7 @@ public class OrderApi : ControllerBase
     [HttpGet("status/{status}")]
     public async Task<IActionResult> GetOrderByStatus(string status)
     {
-        List<OrderDTO> json = await OrderFacade.GetOrdersByStatus(status);
+        List<OrderDTO> json = await _orderFacade.GetOrdersByStatus(status);
         return Ok(json);
     }
     
@@ -64,7 +72,7 @@ public class OrderApi : ControllerBase
     {
         try
         {
-            OrderDTO updatedOrderDto = await OrderFacade.UpdateOrder(Dto);
+            OrderDTO updatedOrderDto = await _orderFacade.UpdateOrder(Dto);
             return Ok(updatedOrderDto);
         }
         catch (Exception ex)
@@ -76,14 +84,14 @@ public class OrderApi : ControllerBase
     [HttpGet("agent/{id}")]
     public async Task<IActionResult> GetOrderByAgent(int id)
     {
-        List<OrderDTO> json = await OrderFacade.GetOrdersByAgentId(id);
+        List<OrderDTO> json = await _orderFacade.GetOrdersByAgentId(id);
         return Ok(json);
     }
     
     [HttpGet("customer/{id}")]
     public async Task<IActionResult> GetOrderByCustomer(int id)
     {
-        List<OrderDTO> json = await OrderFacade.GetOrdersByCustomerID(id);
+        List<OrderDTO> json = await _orderFacade.GetOrdersByCustomerID(id);
         return Ok(json);
     }
     

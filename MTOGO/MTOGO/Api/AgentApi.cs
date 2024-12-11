@@ -8,16 +8,22 @@ namespace MTOGO.Api;
 [Route("api/[controller]")]
 public class AgentApi : ControllerBase
 {
+    private readonly AgentFacade _agentFacade;
+    
+    public AgentApi(AgentFacade agentFacade)
+    {
+        _agentFacade = agentFacade;
+    }
     
     [HttpPost]
     public IActionResult CreateAgent([FromBody] AgentDTO agentDto)
     {
-        return Ok(AgentFacade.CreateAgent(agentDto));
+        return Ok(_agentFacade.CreateAgent(agentDto));
     }
     
     [HttpGet("{id}")]
     public IActionResult GetAgent(int id)
     {
-        return Ok(AgentFacade.GetAgent(id));
+        return Ok(_agentFacade.GetAgent(id));
     }
 }
