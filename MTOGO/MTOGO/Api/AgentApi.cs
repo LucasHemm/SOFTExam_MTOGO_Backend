@@ -19,16 +19,16 @@ public class AgentApi : ControllerBase
     
     
     [HttpPost]
-    public IActionResult CreateAgent([FromBody] AgentDTO agentDto)
+    public async Task<IActionResult> CreateAgent([FromBody] AgentDTO agentDto)
     {
         IAgentInterface agentFacade = _facadeFactory.GetAgentFacade();
-        return Ok(agentFacade.CreateAgent(agentDto));
+        return Ok(await agentFacade.CreateAgent(agentDto));
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetAgent(int id)
+    public async Task<IActionResult> GetAgent(int id)
     {
         IAgentInterface agentFacade = _facadeFactory.GetAgentFacade();
-        return Ok(agentFacade.GetAgent(id));
+        return Ok(await agentFacade.GetAgent(id));
     }
 }
