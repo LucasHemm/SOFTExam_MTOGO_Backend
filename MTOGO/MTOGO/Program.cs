@@ -54,10 +54,18 @@ public class Program
         // CustomerFacade
         builder.Services.AddHttpClient<CustomerFacade>(client =>
         {
-            string s = "http://customer_app:8080/api/customerapi";
-            client.BaseAddress = new Uri(s);
+            var baseAddress = builder.Configuration["ApiSettings:CustomerUrl"];
+            Console.WriteLine($"CustomerFacade BaseAddress: {baseAddress}");
+            client.BaseAddress = new Uri(baseAddress);
         });
-        builder.Services.AddSingleton<ICustomerInterface, CustomerFacade>();
+
+        builder.Services.AddSingleton<ICustomerInterface>(sp =>
+        {
+            // This ensures we get the CustomerFacade instance that HttpClientFactory created and configured
+            return sp.GetRequiredService<CustomerFacade>();
+        });
+
+
         
         // ResFacade
         builder.Services.AddHttpClient<RestaurantFacade>(client =>
@@ -89,13 +97,6 @@ public class Program
 
         var app = builder.Build();
 
-        // using (var scope = app.Services.CreateScope())
-        // {
-        //     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        //
-        //     // Apply any pending migrations and create the database if it doesn't exist
-        //     dbContext.Database.Migrate();
-        // }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

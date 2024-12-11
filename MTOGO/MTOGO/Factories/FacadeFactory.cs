@@ -38,6 +38,8 @@ public class FacadeFactory : IFacadeFactory
     
     public ICustomerInterface GetCustomerFacade()
     {
+        Console.WriteLine(_serviceProvider);
+        Console.WriteLine(_serviceProvider.GetRequiredService<ICustomerInterface>());
         return _serviceProvider.GetRequiredService<ICustomerInterface>();
     }
     
