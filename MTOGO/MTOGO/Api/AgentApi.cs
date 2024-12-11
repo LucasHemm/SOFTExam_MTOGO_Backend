@@ -22,13 +22,15 @@ public class AgentApi : ControllerBase
     public async Task<IActionResult> CreateAgent([FromBody] AgentDTO agentDto)
     {
         IAgentInterface agentFacade = _facadeFactory.GetAgentFacade();
-        return Ok(await agentFacade.CreateAgent(agentDto));
+        var agent = await agentFacade.CreateAgent(agentDto);
+        return Ok(agent);
     }
     
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAgent(int id)
     {
         IAgentInterface agentFacade = _facadeFactory.GetAgentFacade();
-        return Ok(await agentFacade.GetAgent(id));
+        var agent = await agentFacade.GetAgent(id);
+        return Ok(agent);
     }
 }
