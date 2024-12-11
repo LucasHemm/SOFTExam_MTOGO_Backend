@@ -19,17 +19,20 @@ public class CustomerApi : ControllerBase
     
     
     [HttpPost]
-    public IActionResult CreateCustomer([FromBody] CustomerDTO customerDto)
+    public async Task<IActionResult> CreateCustomer([FromBody] CustomerDTO customerDto)
     {
         ICustomerInterface customerFacade = _facadeFactory.GetCustomerFacade();
-        return Ok(customerFacade.CreateCustomer(customerDto));
+        var createdCustomer = await customerFacade.CreateCustomer(customerDto); 
+        return Ok(createdCustomer);
     }
-    
+
     [HttpGet("{id}")]
-    public IActionResult GetCustomer(int id)
+    public async Task<IActionResult> GetCustomer(int id)
     {
         ICustomerInterface customerFacade = _facadeFactory.GetCustomerFacade();
-        return Ok(customerFacade.GetCustomer(id));
+        var customer = await customerFacade.GetCustomer(id); 
+        return Ok(customer); 
     }
+
   
 }

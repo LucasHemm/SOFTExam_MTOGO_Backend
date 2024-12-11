@@ -12,21 +12,23 @@ namespace MTOGO.Facades
 
         public async Task<CustomerDTO> CreateCustomer(CustomerDTO customerDto)
         {
-            try
+            // Log the BaseAddress if needed
+            if (_httpClient.BaseAddress == null)
             {
-                string s = _httpClient.BaseAddress.ToString();
-                Console.WriteLine($"Base address: {s}"+ "#############################");
-                var response = await _httpClient.PostAsJsonAsync(s, customerDto);
-                response.EnsureSuccessStatusCode();
-                var createdCustomer = await response.Content.ReadFromJsonAsync<CustomerDTO>();
-                return createdCustomer;
+                Console.WriteLine("HttpClient BaseAddress is null");
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine($"Error creating customer: {e}");
-                throw;
+                Console.WriteLine($"Base address: {_httpClient.BaseAddress}");
             }
+
+            // Use a relative endpoint ("" or "create") instead of the full base address
+            var response = await _httpClient.PostAsJsonAsync("", customerDto);
+            response.EnsureSuccessStatusCode();
+            var createdCustomer = await response.Content.ReadFromJsonAsync<CustomerDTO>();
+            return createdCustomer;
         }
+
 
         public async Task<CustomerDTO> GetCustomer(int id)
         {
