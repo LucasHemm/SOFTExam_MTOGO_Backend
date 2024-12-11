@@ -3,7 +3,7 @@
 namespace MTOGO.Interfaces
 
 {
-    public interface IRestaurantFacade
+    public interface IRestaurantInterface
     {
         Task<List<RestaurantDTO>> GetRestaurants();
         Task<RestaurantDTO> GetRestaurant(int id);

@@ -1,6 +1,10 @@
-﻿namespace MTOGO.Interfaces;
+﻿using MTOGO.DTOs.PaymentDTOs;
+using PaymentService.DTOs;
 
-public class IPaymentInterface
+namespace MTOGO.Interfaces;
+
+public interface IPaymentInterface
 {
-    
+    Task<PaymentDTO> GetPaymentById(int id);
+    Task<PaymentDTO> CreatePayment(PaymentRequestDto paymentRequestDto);
 }

@@ -1,6 +1,9 @@
-﻿namespace MTOGO.Interfaces;
+﻿using MTOGO.DTOs.FeedbackDTOs;
 
-public class IFeedbackInterface
+namespace MTOGO.Interfaces;
+
+public interface IFeedbackInterface
 {
-    
+   Task<FeedbackDTO> CreateFeedback(FeedbackDTO feedbackDto);
+  
 }

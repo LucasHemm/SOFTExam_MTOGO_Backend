@@ -2,7 +2,7 @@
 
 namespace MTOGO.Interfaces;
 
-public interface IUserFacade
+public interface IUserInterface
 {
     Task<UserDTO> LoginUserAsync(UserDTO user);
     Task<UserDTO> CreateUserAsync(UserDTO user);

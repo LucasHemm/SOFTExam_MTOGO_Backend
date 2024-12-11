@@ -3,7 +3,7 @@ using OrderAndFeedbackService.DTOs;
 
 namespace MTOGO.Interfaces;
 
-public interface IOrderFacade
+public interface IOrderInterface
 {
     Task<string> GetAllOrders();
     Task<string> GetOrder(int id);
