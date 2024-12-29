@@ -1,4 +1,4 @@
-﻿namespace MTOGO.DTOs;
+﻿namespace MTOGO.DTOs.FeedbackDTOs;
 
 public class UpdateRatingDTO
 {

@@ -1,5 +1,6 @@
 ﻿using MTOGO.DTOs;
 using MTOGO.DTOs.AgentDTOs;
+using MTOGO.DTOs.FeedbackDTOs;
 
 namespace MTOGO.Interfaces;
 

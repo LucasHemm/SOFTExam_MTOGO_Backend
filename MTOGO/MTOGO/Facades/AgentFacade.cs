@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System;
 using MTOGO.DTOs;
+using MTOGO.DTOs.FeedbackDTOs;
 
 namespace MTOGO.Facades
 {

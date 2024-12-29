@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using MTOGO.DTOs;
+using MTOGO.DTOs.FeedbackDTOs;
 
 namespace MTOGO.Facades
 {

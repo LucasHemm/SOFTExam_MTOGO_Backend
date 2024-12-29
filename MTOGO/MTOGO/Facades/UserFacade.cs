@@ -11,7 +11,7 @@ public class UserFacade : BaseFacade, IUserInterface
     {
         var response = await _httpClient.PostAsJsonAsync("login", user);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<UserDTO>();
+        return await response.Content.ReadFromJsonAsync<UserDTO>() ?? throw new InvalidOperationException();
     }
 
     public async Task<UserDTO> CreateUserAsync(UserDTO user)
