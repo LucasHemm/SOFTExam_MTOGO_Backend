@@ -1,0 +1,1 @@
+eROC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGO\MTOGO.csproj¢net8.0òCSharp12

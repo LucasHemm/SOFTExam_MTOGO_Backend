@@ -1,6 +1,7 @@
 ﻿using MTOGO.DTOs.RestaurantDTOs;
 
 using MTOGO.DTOs;
+using MTOGO.DTOs.FeedbackDTOs;
 
 namespace MTOGO.Interfaces
 {

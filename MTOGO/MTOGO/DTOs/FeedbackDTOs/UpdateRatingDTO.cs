@@ -1,17 +1,17 @@
-﻿namespace MTOGO.DTOs.AgentDTOs;
+﻿namespace MTOGO.DTOs.FeedbackDTOs;
 
-public class UpdateRatingAgentDTO
+public class UpdateRatingDTO
 {
     public int Id { get; set; } //primary key
     public double Rating { get; set; }
     public int NumberOfRatings { get; set; }
 
 
-    public UpdateRatingAgentDTO()
+    public UpdateRatingDTO()
     {
     }
 
-    public UpdateRatingAgentDTO(int id, double rating, int numberOfRatings)
+    public UpdateRatingDTO(int id, double rating, int numberOfRatings)
     {
         Id = id;
         Rating = rating;

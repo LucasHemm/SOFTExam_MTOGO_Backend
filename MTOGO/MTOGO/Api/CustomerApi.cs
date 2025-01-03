@@ -33,6 +33,4 @@ public class CustomerApi : ControllerBase
         var customer = await customerFacade.GetCustomer(id); 
         return Ok(customer); 
     }
-
-  
 }

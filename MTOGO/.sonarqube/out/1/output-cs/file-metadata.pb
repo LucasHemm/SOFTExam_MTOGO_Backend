@@ -1,0 +1,15 @@
+|
+qC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\obj\Debug\net8.0\MTOGOTEST.AssemblyInfo.csutf-8’
+†C:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8~
+sC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\obj\Debug\net8.0\MTOGOTEST.GlobalUsings.g.csutf-8}
+rC:\Users\mrott\.nuget\packages\microsoft.net.test.sdk\17.8.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.csutf-8\
+SC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\UnitTest1.csutf-8a
+XC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\HttpClientMock.csutf-8m
+dC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\FacadeTests\UserFacadeTest.csutf-8s
+jC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\FacadeTests\RestaurantFacadeTest.csutf-8p
+gC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\FacadeTests\PaymentFacadeTest.csutf-8q
+hC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\FacadeTests\CustomerFacadeTest.csutf-8n
+eC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\FacadeTests\OrderFacadeTest.csutf-8q
+hC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\FacadeTests\FeedbackFacadeTest.csutf-8n
+eC:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\FacadeTests\AgentFacadeTest.csutf-8g
+^C:\Users\mrott\Documents\GitHub\SOFTExam_MTOGO_Backend\MTOGO\MTOGOTEST\APITests\UserApiTest.csutf-8
