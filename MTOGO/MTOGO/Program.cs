@@ -13,6 +13,9 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         
+        builder.Logging.ClearProviders();
+        builder.Logging.AddConsole(); 
+        
         // Register Facades
         builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 
@@ -23,35 +26,35 @@ public class Program
         });
         builder.Services.AddSingleton<IUserInterface>(sp => sp.GetRequiredService<UserFacade>());
 
-// OrderFacade
+        // OrderFacade
         builder.Services.AddHttpClient<OrderFacade>(client =>
         {
             client.BaseAddress = new Uri(builder.Configuration["ApiSettings:OrderUrl"]);
         });
         builder.Services.AddSingleton<IOrderInterface>(sp => sp.GetRequiredService<OrderFacade>());
 
-// FeedbackFacade
+        // FeedbackFacade
         builder.Services.AddHttpClient<FeedbackFacade>(client =>
         {
             client.BaseAddress = new Uri(builder.Configuration["ApiSettings:FeedbackUrl"]);
         });
         builder.Services.AddSingleton<IFeedbackInterface>(sp => sp.GetRequiredService<FeedbackFacade>());
 
-// PaymentFacade
+        // PaymentFacade
         builder.Services.AddHttpClient<PaymentFacade>(client =>
         {
             client.BaseAddress = new Uri(builder.Configuration["ApiSettings:PaymentUrl"]);
         });
         builder.Services.AddSingleton<IPaymentInterface>(sp => sp.GetRequiredService<PaymentFacade>());
 
-// AgentFacade
+        // AgentFacade
         builder.Services.AddHttpClient<AgentFacade>(client =>
         {
             client.BaseAddress = new Uri(builder.Configuration["ApiSettings:AgentUrl"]);
         });
         builder.Services.AddSingleton<IAgentInterface>(sp => sp.GetRequiredService<AgentFacade>());
 
-// CustomerFacade
+        // CustomerFacade
         builder.Services.AddHttpClient<CustomerFacade>(client =>
         {
             var baseAddress = builder.Configuration["ApiSettings:CustomerUrl"];
@@ -59,7 +62,7 @@ public class Program
         });
         builder.Services.AddSingleton<ICustomerInterface>(sp => sp.GetRequiredService<CustomerFacade>());
 
-// ResFacade
+
         builder.Services.AddHttpClient<RestaurantFacade>(client =>
         {
             client.BaseAddress = new Uri(builder.Configuration["ApiSettings:ResUrl"]);
