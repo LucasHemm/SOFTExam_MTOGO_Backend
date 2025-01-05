@@ -11,27 +11,49 @@ namespace MTOGO.Api;
 public class UserApi : ControllerBase
 {
     private readonly IFacadeFactory _facadeFactory;
+    private readonly ILogger<UserApi> _logger;
   
-    public UserApi(IFacadeFactory facadeFactory)
+    public UserApi(ILogger<UserApi> logger, IFacadeFactory facadeFactory)
     {
+        _logger = logger;
         _facadeFactory = facadeFactory;
     }
     
-    //Create user
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] UserDTO userDto)
     {
+        var now = DateTime.UtcNow.ToString("o"); 
+        _logger.LogInformation(
+            "Timestamp: {Timestamp} - CreateUser endpoint called with UserDTO: {@UserDTO}",
+            now,
+            userDto
+        );
+
         try
         {
             IUserInterface userFacade = _facadeFactory.GetUserFacade();
+
             UserDTO createdUser = await userFacade.CreateUserAsync(userDto);
+
+            _logger.LogInformation(
+                "Timestamp: {Timestamp} - User created successfully with ID: {UserId}",
+                now,
+                createdUser.Id
+            );
+
             return Ok(createdUser);
         }
         catch (Exception ex)
         {
+            _logger.LogError(
+                ex,
+                "Timestamp: {Timestamp} - An error occurred while creating the user.",
+                DateTime.UtcNow.ToString("o")
+            );
             return BadRequest(ex.Message);
         }
     }
+
     
     //Login
     [HttpPost("login")]
